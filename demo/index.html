@@ -75,6 +75,38 @@ function replaceWidget() {
     }
     widget.parentNode.replaceChild(parkflowWidget, widget);
   });
+
+  // Need to replace the following heights with 100%
+  // <div style="height:3400px">
+  //   <div style="height: 1px">
+  //     <div>
+  //       <div>
+  //         <parkflow-widget parking="parkingdominik.parkflow.io" tenant="parkingdominik.parkflow.io" type="Manage" locale="en"></parkflow-widget>
+  //       </div>
+  //     </div>
+  //   </div>
+  // </div>
+
+  try {
+    if (flyparkWidgets.length > 0) {
+        const parkflowWidget = document.querySelector('div > div > div > parkflow-widget')
+        if (parkflowWidget) {
+            const parkflowWidgetParent = parkflowWidget.parentNode.parentNode.parentNode;
+            if (parkflowWidgetParent) {
+                parkflowWidgetParent.style.height = '100%';
+                const pp = parkflowWidgetParent.parentNode;
+                if (pp) {
+                pp.style.height = '100%';
+                }
+            } else {
+                console.log('Could not find the parent of the parkflow-widget.');
+            }
+        }
+    }
+  } catch(err) {
+    console.error(err)
+  }
+  
 }
 
 document.addEventListener('DOMContentLoaded', function() {
